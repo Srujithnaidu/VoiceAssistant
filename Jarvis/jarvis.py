@@ -7,6 +7,7 @@ import os
 import random
 import pyautogui
 import pyjokes
+from urllib.parse import quote
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -145,6 +146,23 @@ def search_wikipedia(query):
     except Exception:
         speak("I couldn't find anything on Wikipedia.")
 
+def open_ai_website(name: str) -> None:
+    """Opens AI websites in the default browser."""
+    ai_sites = {
+        "chatgpt": "https://chat.openai.com",
+        "gemini": "https://gemini.google.com",
+        "perplexity": "https://www.perplexity.ai"
+    }
+    
+    try:
+        if name in ai_sites:
+            wb.open_new_tab(ai_sites[name])
+            speak(f"Opening {name} in your browser")
+        else:
+            speak(f"Sorry, I don't know how to open {name}")
+    except Exception as e:
+        speak(f"Error opening {name}: {e}")
+
 
 if __name__ == "__main__":
     wishme()
@@ -199,3 +217,14 @@ if __name__ == "__main__":
         elif "offline" in query or "exit" in query:
             speak("Going offline. Have a good day!")
             break
+            
+        elif "open chatgpt" in query or "chat gpt" in query:
+            open_ai_website("chatgpt")
+            
+        elif "open gemini" in query:
+            open_ai_website("gemini")
+            
+        elif "open perplexity" in query:
+            open_ai_website("perplexity")
+            
+    
