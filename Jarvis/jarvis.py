@@ -8,17 +8,24 @@ import random
 import pyautogui
 import pyjokes
 from urllib.parse import quote
-
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)  
-engine.setProperty('rate', 150)
-engine.setProperty('volume', 1)
+import speedtest
 
 
-def speak(audio) -> None:
-    engine.say(audio)
-    engine.runAndWait()
+
+
+def speak(text):
+    try:
+        print(f"Speaking: {text}")  # Debug line
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        engine.setProperty('voice', voices[1].id)  # Or use voices[0].id
+        engine.setProperty('rate', 150)
+        engine.setProperty('volume', 1)
+        engine.say(text)
+        engine.runAndWait()
+    except Exception as e:
+        print(f"Speech Error: {e}")
+
 
 
 def time() -> None:
@@ -164,6 +171,33 @@ def open_ai_website(name: str) -> None:
         speak(f"Error opening {name}: {e}")
 
 
+def internet_speed_test() -> None:
+    """Performs an internet speed test and announces the results."""
+    speak("Checking internet speed, please wait.")
+    try:
+        st = speedtest.Speedtest()
+        st.get_best_server()
+        download = st.download()
+        upload = st.upload()
+        ping = st.results.ping
+
+        download_speed = download / 1_000_000  # Convert to Mbps
+        upload_speed = upload / 1_000_000      # Convert to Mbps
+
+        result = (f"Download speed is {download_speed:.2f} megabits per second, "
+                  f"upload speed is {upload_speed:.2f} megabits per second, "
+                  f"and ping is {ping:.0f} milliseconds.")
+        speak(f"Download speed is {download_speed:.2f} megabits per second.")
+        speak(f"Upload speed is {upload_speed:.2f} megabits per second.")
+        speak(f"Ping is {ping:.0f} milliseconds.")
+
+        print(result)
+    except Exception as e:
+        speak("Sorry, I couldn't perform the speed test.")
+        print(f"Speed test error: {e}")
+
+
+
 if __name__ == "__main__":
     wishme()
 
@@ -226,5 +260,13 @@ if __name__ == "__main__":
             
         elif "open perplexity" in query:
             open_ai_website("perplexity")
+        
+        elif "internet speed" in query or "speed test" in query:
+            internet_speed_test()
+        else:
+            speak("Sorry, I didn't understand that.")
+            print("Sorry, I didn't understand that.")
+
+
             
     
