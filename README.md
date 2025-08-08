@@ -13,12 +13,8 @@ It can do a lot of cool things, some of them being:
 - Access AI Tools:
   - ChatGPT
   - Google Gemini
-  - Perplexity AI
-  - Claude AI
-  - Google Bard
 - Tells about any person (via Wikipedia)
 - Can search anything on Google
-- Plays music
 - Take important notes in text file
 - Can take screenshot and save it with custom filename
 - Can tell jokes
@@ -66,7 +62,6 @@ It can do a lot of cool things, some of them being:
 3. **Voice Commands**
    - "Open ChatGPT"
    - "Open Gemini"
-   - "Open Perplexity"
    - "Tell me the time"
    - "What's the date?"
    - "Search Wikipedia for [topic]"
