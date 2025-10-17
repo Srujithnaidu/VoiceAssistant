@@ -104,22 +104,6 @@ def takecommand() -> str:
         print(f"Error: {e}")
         return None
 
-def play_music(song_name=None) -> None:
-    """Plays music from the user's Music directory."""
-    song_dir = os.path.expanduser("~\\Music")
-    songs = os.listdir(song_dir)
-
-    if song_name:
-        songs = [song for song in songs if song_name.lower() in song.lower()]
-
-    if songs:
-        song = random.choice(songs)
-        os.startfile(os.path.join(song_dir, song))
-        speak(f"Playing {song}.")
-        print(f"Playing {song}.")
-    else:
-        speak("No song found.")
-        print("No song found.")
 
 def set_name() -> None:
     """Sets a new name for the assistant."""
@@ -216,10 +200,6 @@ if __name__ == "__main__":
             query = query.replace("wikipedia", "").strip()
             search_wikipedia(query)
 
-        elif "play music" in query:
-            song_name = query.replace("play music", "").strip()
-            play_music(song_name)
-
         elif "open youtube" in query:
             wb.open("youtube.com")
             
@@ -269,4 +249,5 @@ if __name__ == "__main__":
 
 
             
+
     
